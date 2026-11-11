@@ -6,6 +6,12 @@
   --border: #e2e5ea;
   --accent: #6b4fd8;
   --on-accent: #ffffff;
+  --tile: #fff6c2;
+  --tile-edge: #e2c96a;
+  --tile-text: #3b2a7a;
+  --wrong: #e5484d;
+  --selected: #f2b200;
+  --good: #2fa36b;
   --radius: 18px;
 
   color-scheme: light dark;
@@ -29,6 +35,11 @@
     --border: #2c3038;
     --accent: #a996ff;
     --on-accent: #1a1238;
+    --tile: #3a3355;
+    --tile-edge: #241f38;
+    --tile-text: #f3efff;
+    --wrong: #ff6b6f;
+    --good: #4cc38a;
   }
 }
 
@@ -155,6 +166,160 @@ h2 {
   min-height: 0;
 }
 
+/* Board */
+
+.board {
+  --size: min(56px, calc((100cqw - (var(--n) - 1) * 6px) / var(--n)));
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto auto;
+  justify-items: center;
+  align-items: center;
+  gap: 18px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.picture {
+  height: 100%;
+  max-height: 240px;
+  aspect-ratio: 1;
+  min-height: 0;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  background: var(--surface);
+  line-height: 1;
+}
+
+/* About two thirds of the card, which takes the height left over. */
+.picture span {
+  font-size: clamp(48px, 22cqh, 120px);
+}
+
+.picture:active {
+  transform: scale(0.97);
+}
+
+.picture--solved {
+  animation: bounce 0.6s ease-out;
+}
+
+.slots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.slot,
+.tile {
+  width: var(--size);
+  height: calc(var(--size) * 1.15);
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: calc(var(--size) * 0.55);
+  line-height: 1;
+}
+
+.slot {
+  border: 2px dashed color-mix(in srgb, var(--muted) 45%, transparent);
+  color: var(--tile-text);
+}
+
+.slot--next {
+  border-color: var(--accent);
+  border-style: solid;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.slot--filled {
+  border: 0;
+  background: var(--tile);
+  box-shadow: inset 0 -4px 0 var(--tile-edge);
+  animation: drop 0.18s ease-out;
+}
+
+.slot--solved {
+  background: var(--good);
+  color: #fff;
+  box-shadow: inset 0 -4px 0 color-mix(in srgb, var(--good) 70%, #000);
+  animation: hop 0.4s ease-out both;
+}
+
+.pool {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  max-width: 340px;
+}
+
+.pool--done {
+  visibility: hidden;
+}
+
+.tile {
+  --size: 58px;
+  border: 0;
+  padding: 0;
+  background: var(--tile);
+  color: var(--tile-text);
+  box-shadow: inset 0 -5px 0 var(--tile-edge);
+  font-size: 1.9rem;
+  transition: transform 0.1s;
+}
+
+.tile:active {
+  transform: scale(0.94);
+}
+
+.tile--used {
+  background: color-mix(in srgb, var(--muted) 12%, transparent);
+  box-shadow: none;
+}
+
+.tile--wrong {
+  animation: shake 0.4s ease-in-out;
+  background: color-mix(in srgb, var(--wrong) 25%, var(--tile));
+}
+
+@keyframes shake {
+  20%,
+  60% {
+    transform: translateX(-7px);
+  }
+  40%,
+  80% {
+    transform: translateX(7px);
+  }
+}
+
+@keyframes drop {
+  from {
+    transform: scale(0.6);
+  }
+}
+
+@keyframes hop {
+  40% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes bounce {
+  30% {
+    transform: scale(1.12);
+  }
+  60% {
+    transform: scale(0.96);
+  }
+}
+
 /* Under the board */
 
 .bar {
@@ -227,7 +392,10 @@ h2 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .solved {
+  .solved,
+  .picture--solved,
+  .slot,
+  .tile {
     animation: none !important;
   }
 }

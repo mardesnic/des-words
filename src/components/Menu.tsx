@@ -1,5 +1,32 @@
-import type { Settings } from '../lib/game';
+import type { Settings, Stats } from '../lib/game';
 import { LANG_NAMES, LANGS, type Language, type Strings } from '../lib/i18n';
+import { LEVELS, type Level } from '../lib/spell';
+
+export function NewGame({
+  onStart,
+  t,
+}: {
+  onStart: (l: Level) => void;
+  t: Strings;
+}) {
+  return (
+    <section className='card'>
+      <h2>{t.newGame}</h2>
+      <div className='levels'>
+        {LEVELS.map((l, n) => (
+          <button key={l} className='level' onClick={() => onStart(l)}>
+            <span className='level__pips' aria-hidden='true'>
+              {LEVELS.map((_, k) => (
+                <span key={k} className={k <= n ? 'pip pip--on' : 'pip'} />
+              ))}
+            </span>
+            {t.levels[l]}
+          </button>
+        ))}
+      </div>
+    </section>
+  );
+}
 
 function Segmented<T>({
   options,
@@ -30,37 +57,61 @@ function Segmented<T>({
 export function SettingsView({
   settings,
   setSettings,
+  stats,
   t,
 }: {
   settings: Settings;
   setSettings: (s: Settings) => void;
+  stats: Stats;
   t: Strings;
 }) {
   const languages: Language[] = ['auto', ...LANGS];
 
   return (
-    <section className='card'>
-      <h2>{t.settings}</h2>
+    <>
+      <section className='card'>
+        <h2>{t.settings}</h2>
 
-      <div className='field'>
-        <span>{t.language}</span>
-        <Segmented
-          options={languages}
-          value={settings.language}
-          label={(l) => (l === 'auto' ? t.automatic : LANG_NAMES[l])}
-          onChange={(language) => setSettings({ ...settings, language })}
-        />
-      </div>
+        <div className='field'>
+          <span>{t.language}</span>
+          <Segmented
+            options={languages}
+            value={settings.language}
+            label={(l) => (l === 'auto' ? t.automatic : LANG_NAMES[l])}
+            onChange={(language) => setSettings({ ...settings, language })}
+          />
+        </div>
 
-      <div className='field'>
-        <span>{t.sound}</span>
-        <Segmented
-          options={[true, false]}
-          value={settings.sound}
-          label={(on) => (on ? t.on : t.off)}
-          onChange={(sound) => setSettings({ ...settings, sound })}
-        />
-      </div>
-    </section>
+        <div className='field'>
+          <span>{t.sound}</span>
+          <Segmented
+            options={[true, false]}
+            value={settings.sound}
+            label={(on) => (on ? t.on : t.off)}
+            onChange={(sound) => setSettings({ ...settings, sound })}
+          />
+        </div>
+      </section>
+
+      <section className='card'>
+        <h2>{t.statistics}</h2>
+        <table className='stats'>
+          <thead>
+            <tr>
+              <th />
+              <th>{t.solvedColumn}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {LEVELS.map((l) => (
+              <tr key={l}>
+                <th>{t.levels[l]}</th>
+                <td>{stats[l].solved}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+    </>
   );
 }

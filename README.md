@@ -12,10 +12,16 @@ On your phone, open it and choose **Add to Home Screen** (Safari) or **Install a
 
 ## Features
 
-- A picture to spell, with the letters to put in order
-- Words in English and Croatian, following the phone's language unless you pick one
+- Over 100 words in each language, at four levels: words of **3**, **4**, **5**, and **6 or more** letters
+- Tap the letters in order: the right one jumps into the word, a wrong one just gives a little shake
+- In Croatian, LJ, NJ and DŽ are one letter each, as taught at school
+- Capital letters, as children learn first
+- The phone says the word when it is spelled, or when the picture is tapped (where the phone has a voice for that language)
+- A word does not come again until a dozen others have been played
+- A count of words spelled at each level
 - Picks up where you left off after a reload
 - Keeps the screen on while you play
+- In English and Croatian, following the phone's language unless you pick one
 - Light and dark mode
 - No ads, accounts or tracking
 
