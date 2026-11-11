@@ -26,9 +26,11 @@ export function Board({
   const solved = isSolved(round);
   const n = round.answer.length;
   const pick = (tile: number) => {
-    if (!onPick(tile)) {
+    if (onPick(tile)) {
+      navigator.vibrate?.(10);
+    } else {
       setWrong({ tile, at: Date.now() });
-      navigator.vibrate?.(30);
+      navigator.vibrate?.([40, 60, 40]);
     }
   };
 
