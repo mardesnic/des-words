@@ -5,12 +5,10 @@ import { Confetti } from './components/Confetti';
 import { Icon } from './components/Icon';
 import { NewGame, SettingsView } from './components/Menu';
 import {
-  initialSettings,
   initialStats,
   initialStore,
   nextRound,
   recordWin,
-  type Settings,
   type Stats,
   type Store,
 } from './lib/game';
@@ -19,7 +17,7 @@ import { speak, warmUpSpeech } from './lib/speech';
 import { isSolved, place, startOver, takeBack, type Level } from './lib/spell';
 import { popMenu, pushMenu, useBackButton } from './lib/use-back-button';
 import { useCheer } from './lib/use-cheer';
-import { useLanguage } from './lib/use-language';
+import { useLanguage, useSound } from './lib/use-shared-settings';
 import { useStoredState } from './lib/use-stored-state';
 import { useWakeLock } from './lib/use-wake-lock';
 
@@ -29,10 +27,6 @@ export default function App() {
   // Keys are prefixed: other apps on the same GitHub Pages origin share
   // this storage.
   const [store, setStore] = useStoredState<Store>('words', initialStore);
-  const [settings, setSettings] = useStoredState<Settings>(
-    'words-settings',
-    initialSettings
-  );
   const [stats, setStats] = useStoredState<Stats>('words-stats', initialStats);
 
   const [language, setLanguage] = useLanguage();
@@ -63,11 +57,12 @@ export default function App() {
   });
   const [celebrating, setCelebrating] = useState(false);
   useWakeLock();
-  const cheer = useCheer(settings.sound);
+  const [sound, setSound] = useSound();
+  const cheer = useCheer(sound);
   useEffect(warmUpSpeech, []);
 
   const say = () => {
-    if (round && settings.sound) speak(round.word, round.lang);
+    if (round && sound) speak(round.word, round.lang);
   };
 
   const start = (level: Level) => {
@@ -84,7 +79,7 @@ export default function App() {
       setCelebrating(true);
       cheer();
       // After the cheer, so the word is heard clearly.
-      if (settings.sound) setTimeout(() => speak(next.word, next.lang), 700);
+      if (sound) setTimeout(() => speak(next.word, next.lang), 700);
     }
     setStore({ ...store, round: next });
     return true;
@@ -130,8 +125,8 @@ export default function App() {
         <SettingsView
           language={language}
           setLanguage={setLanguage}
-          settings={settings}
-          setSettings={setSettings}
+          sound={sound}
+          setSound={setSound}
           stats={stats}
           t={t}
         />

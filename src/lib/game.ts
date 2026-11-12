@@ -8,10 +8,6 @@ import {
   type Round,
 } from './spell';
 
-export type Settings = { sound: boolean };
-
-export const initialSettings: Settings = { sound: true };
-
 export type Stats = { [L in Level]: { solved: number } };
 
 export const initialStats = Object.fromEntries(
