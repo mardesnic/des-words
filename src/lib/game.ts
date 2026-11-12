@@ -1,4 +1,4 @@
-import type { Lang, Language } from './i18n';
+import type { Lang } from './i18n';
 import {
   LEVELS,
   isSolved,
@@ -8,9 +8,9 @@ import {
   type Round,
 } from './spell';
 
-export type Settings = { language: Language; sound: boolean };
+export type Settings = { sound: boolean };
 
-export const initialSettings: Settings = { language: 'auto', sound: true };
+export const initialSettings: Settings = { sound: true };
 
 export type Stats = { [L in Level]: { solved: number } };
 
