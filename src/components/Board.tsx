@@ -25,6 +25,8 @@ export function Board({
 
   const solved = isSolved(round);
   const n = round.answer.length;
+  // Up to seven tiles fit in one row; longer words take two even rows.
+  const row = n <= 7 ? n : Math.ceil(n / 2);
   const pick = (tile: number) => {
     if (onPick(tile)) {
       navigator.vibrate?.(10);
@@ -35,7 +37,7 @@ export function Board({
   };
 
   return (
-    <div className='board' style={{ '--n': n } as CSSProperties}>
+    <div className='board' style={{ '--n': n, '--row': row } as CSSProperties}>
       <button
         className={solved ? 'picture picture--solved' : 'picture'}
         onClick={onSay}

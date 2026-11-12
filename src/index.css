@@ -210,6 +210,8 @@ h2 {
 
 .board {
   --size: min(56px, calc((100cqw - (var(--n) - 1) * 6px) / var(--n)));
+  /* The tiles shrink so a row of --row of them fits the screen. */
+  --tile: min(58px, calc((100cqw - (var(--row) - 1) * 8px) / var(--row)));
   width: 100%;
   height: 100%;
   display: grid;
@@ -295,8 +297,8 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
-  max-width: 340px;
+  gap: 8px;
+  max-width: calc(var(--row) * var(--tile) + (var(--row) - 1) * 8px + 1px);
 }
 
 .pool--done {
@@ -304,13 +306,13 @@ h2 {
 }
 
 .tile {
-  --size: 58px;
+  --size: var(--tile);
   border: 0;
   padding: 0;
   background: var(--tile);
   color: var(--tile-text);
   box-shadow: inset 0 -5px 0 var(--tile-edge);
-  font-size: 1.9rem;
+  font-size: min(1.9rem, calc(var(--size) * 0.55));
   transition: transform 0.1s;
 }
 
