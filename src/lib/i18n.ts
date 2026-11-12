@@ -19,8 +19,7 @@ const en = {
   title: 'Words',
   newGame: 'New game',
   settings: 'Settings',
-  cancel: 'Cancel',
-  done: 'Done',
+  close: 'Close',
   levels: {
     three: 'Very easy',
     four: 'Easy',
@@ -59,8 +58,7 @@ const hr: Strings = {
   title: 'Riječi',
   newGame: 'Nova igra',
   settings: 'Postavke',
-  cancel: 'Odustani',
-  done: 'Gotovo',
+  close: 'Zatvori',
   levels: {
     three: 'Vrlo lagano',
     four: 'Lagano',

@@ -115,10 +115,11 @@ export default function App() {
           ) : (
             store.round && (
               <button
-                className='button button--small'
+                className='button button--small button--icon'
                 onClick={() => setView('play')}
+                aria-label={t.close}
               >
-                {view === 'new' ? t.cancel : t.done}
+                <Icon name='close' />
               </button>
             )
           )}
