@@ -75,7 +75,7 @@ const hr: Strings = {
   goal: 'Dodiruj slova redom',
   say: 'Izgovori riječ',
   word: 'Riječ',
-  undo: 'Vrati',
+  undo: 'Poništi',
   clear: 'Ispočetka',
   solved: 'Bravo!',
   next: 'Sljedeća riječ',
