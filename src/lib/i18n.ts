@@ -22,6 +22,12 @@ const en = {
   cancel: 'Cancel',
   done: 'Done',
   levels: {
+    three: 'Very easy',
+    four: 'Easy',
+    five: 'Medium',
+    long: 'Hard',
+  } as Record<Level, string>,
+  levelNotes: {
     three: '3 letters',
     four: '4 letters',
     five: '5 letters',
@@ -55,6 +61,12 @@ const hr: Strings = {
   cancel: 'Odustani',
   done: 'Gotovo',
   levels: {
+    three: 'Vrlo lagano',
+    four: 'Lagano',
+    five: 'Srednje',
+    long: 'Teško',
+  },
+  levelNotes: {
     three: '3 slova',
     four: '4 slova',
     five: '5 slova',
