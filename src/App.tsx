@@ -19,6 +19,7 @@ import { speak, warmUpSpeech } from './lib/speech';
 import { isSolved, place, startOver, takeBack, type Level } from './lib/spell';
 import { popMenu, pushMenu, useBackButton } from './lib/use-back-button';
 import { useCheer } from './lib/use-cheer';
+import { useSettings } from './lib/use-settings';
 import { useStoredState } from './lib/use-stored-state';
 import { useWakeLock } from './lib/use-wake-lock';
 
@@ -28,7 +29,7 @@ export default function App() {
   // Keys are prefixed: other apps on the same GitHub Pages origin share
   // this storage.
   const [store, setStore] = useStoredState<Store>('words', initialStore);
-  const [settings, setSettings] = useStoredState<Settings>(
+  const [settings, setSettings] = useSettings<Settings>(
     'words-settings',
     initialSettings
   );
