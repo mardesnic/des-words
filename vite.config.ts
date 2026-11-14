@@ -35,7 +35,7 @@ export default defineConfig({
         name: 'Words',
         short_name: 'Words',
         description: 'A spelling game for kids that works offline',
-        theme_color: '#087f5b',
+        theme_color: '#2f8f1f',
         background_color: '#f4f5f7',
         display: 'standalone',
       },
