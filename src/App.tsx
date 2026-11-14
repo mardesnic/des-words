@@ -53,9 +53,7 @@ export default function App() {
     else pushMenu();
     setViewState(next);
   };
-  useBackButton(() => {
-    if (store.round) setViewState('play');
-  });
+  useBackButton(() => setViewState(store.round ? 'play' : 'new'));
   const [celebrating, setCelebrating] = useState(false);
   useWakeLock();
   const [sound, setSound] = useSound();
@@ -112,16 +110,22 @@ export default function App() {
                 <Icon name='settings' />
               </button>
             </>
+          ) : store.round || view === 'settings' ? (
+            <button
+              className='button button--small button--icon'
+              onClick={() => (store.round ? setView('play') : popMenu())}
+              aria-label={t.close}
+            >
+              <Icon name='close' />
+            </button>
           ) : (
-            store.round && (
-              <button
-                className='button button--small button--icon'
-                onClick={() => setView('play')}
-                aria-label={t.close}
-              >
-                <Icon name='close' />
-              </button>
-            )
+            <button
+              className='button button--small button--icon'
+              onClick={() => setView('settings')}
+              aria-label={t.settings}
+            >
+              <Icon name='settings' />
+            </button>
           )}
         </div>
       </header>
